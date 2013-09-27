@@ -24,3 +24,5 @@ new_button = PabloForPresidentButton.new do
   # by placing one over his pocket protector
   #
 end
+
+new_button.on_button_push #bang!
