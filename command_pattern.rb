@@ -51,5 +51,8 @@ class DeleteFile < Command
   end
 end
 
-CreateFile.new('file1.txt', "hello world\n")
-DeleteFile.new('file1.txt')
+create_command = CreateFile.new('file1.txt', "hello world\n")
+create_command.execute
+
+delete_command = DeleteFile.new('file1.txt')
+delete_command.execute
