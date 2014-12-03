@@ -1,28 +1,55 @@
-#Command Pattern
+# Command Pattern
+class Command
+  attr_reader :description
 
-class PabloForPresidentButton
-  attr_accessor :command
-
-  def initialize(block)
-    @command = block
+  def initialize(description)
+    @description = description
+    puts @description
   end
 
-  #
-  # Lots of button drawing and management
-  # code omitted ...
-  #
-  
-  def on_button_push
-    @command.call if @command
+  def execute
+  end
+end
+
+class CreateFile < Command
+  def initialize(path, contents)
+    super "Create file: #{path}"
+    @path = path
+    @contents = contents
   end
 
+  def execute
+    f = File.open(@path, "w")
+    f.write(@contents)
+    f.close
+  end
+
+  def unexecute
+    File.delete(@path)
+  end
 end
 
-new_button = PabloForPresidentButton.new do
-  #
-  # Make a developer stop looking so nerdy
-  # by placing one over his pocket protector
-  #
+class DeleteFile < Command
+  def initialize(path)
+    super "Delete file: #{path}"
+    @path = path
+  end
+
+  def execute
+    if File.exists?(@path)
+      @contents = File.read(@path)
+    end
+    f = File.delete(@path)
+  end
+
+  def unexecute
+    if @contents
+      f = File.open(@path,"w")
+      f.write(@contents)
+      f.close
+    end
+  end
 end
 
-new_button.on_button_push #bang!
+CreateFile.new('file1.txt', "hello world\n")
+DeleteFile.new('file1.txt')
