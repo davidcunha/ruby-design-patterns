@@ -81,7 +81,3 @@ class LaptopBuilder < ComputerBuilder
     @computer.drives << LaptopDrive.new(:hard_disk, size_in_mb, true)
   end
 end
-
-  def add_hard_disk(size_in_mb)
-  @computer.drives << Drive.new(:hard_disk, size_in_mb, true)
-  end end
